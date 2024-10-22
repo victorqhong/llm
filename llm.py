@@ -15,7 +15,7 @@ parser.add_argument("--messages", type=str, default="messages.json", help="Path 
 parser.add_argument("--save_messages", type=bool, default=False, help="Whether to save messages of this conversation")
 parser.add_argument("--user_message", type=str, default="", help="User content to use")
 parser.add_argument("--model_name", type=str, default="gpt-4o", help="Name of the model to use")
-parser.add_argument("--credentials_file", type=str, default=os.getenv("LLM_CREDENTIALS_FILE", "credentials.json"), help="Path to JSON file with Azure OpenAI configuration")
+parser.add_argument("--credentials_file", type=str, default=os.getenv("LLM_CREDENTIALS_FILE", "credentials.json"), help="Path to JSON file with Azure OpenAI configuration. Uses LLM_CREDENTIALS_FILE environment variable by default.")
 
 args = parser.parse_args()
 
@@ -23,10 +23,8 @@ azure_endpoint = os.getenv(azure_openai_endpoint) or ""
 api_key = os.getenv(azure_openai_api_key)
 
 if not azure_endpoint or not api_key:
-    credentials = {}
     try:
-        credentials_file = args.credentials_file
-        file = open(credentials_file, "r", encoding="utf-8")
+        file = open(args.credentials_file, "r", encoding="utf-8")
         contents = file.read()
         file.close()
         credentials = json.loads(contents)
@@ -66,9 +64,8 @@ if user_content == "":
 messages = []
 messages_file = "messages.json"
 if args.messages:
-    messages_file = args.messages
     try:
-        file = open(messages_file, "r", encoding="utf-8")
+        file = open(args.messages, "r", encoding="utf-8")
         contents = file.read()
         file.close()
         messages = json.loads(contents)
