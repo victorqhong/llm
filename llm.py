@@ -62,10 +62,10 @@ if user_content == "":
         quit(3)
 
 messages = []
-messages_file = "messages.json"
-if args.messages:
+messages_file = args.messages
+if messages_file:
     try:
-        file = open(args.messages, "r", encoding="utf-8")
+        file = open(messages_file, "r", encoding="utf-8")
         contents = file.read()
         file.close()
         messages = json.loads(contents)
