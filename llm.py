@@ -4,6 +4,8 @@ import argparse
 import json
 import os
 
+from prompt_toolkit import prompt
+
 from openai import AzureOpenAI
 from chat import Chat
 
@@ -56,7 +58,7 @@ chat = Chat(client)
 user_content = args.user_message
 if user_content == "":
     try:
-        user_content = input("User message: ")
+        user_content = prompt("User message: ", multiline=True)
     except:
         print()
         quit(3)
