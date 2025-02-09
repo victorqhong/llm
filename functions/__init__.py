@@ -3,12 +3,18 @@ import json
 from .read_file import ReadFileFunction
 from .write_file import WriteFileFunction
 from .dir import DirFunction
+
+from .sqlite_script_run import SqliteScriptRunFunction
+from .sqlite_statement_run import SqliteStatementRunFunction
+
 from .shell import ShellFunction
 
 functions = [
     ReadFileFunction(),
     WriteFileFunction(),
     DirFunction(),
+    SqliteScriptRunFunction(),
+    SqliteStatementRunFunction(),
     ShellFunction()
 ]
 
